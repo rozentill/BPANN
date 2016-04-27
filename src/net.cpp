@@ -4,7 +4,6 @@
 #include<time.h>
 
 #define random(x) (rand()%x)
-#define sigmoid(x) ()
 using namespace std;
 
 class BPANN{
@@ -26,6 +25,10 @@ private:
     /* sensitivity */
     float * sOutput;
     float * sHidden;
+
+    /* e */
+    float errorTrain;
+    float errorTest;
 
     /* activation function */
     float (*activation)(float);
@@ -77,6 +80,10 @@ public:
         outputHidden = new float[numHidden];
         outputOutput = new float[numOutput];
 
+        /* initialize error */
+        errorTrain = 0;
+        errorTest = 0;
+
         /* activation functions choices */
         switch (funcNo) {
             case 0:
@@ -87,18 +94,21 @@ public:
                 activation = tanh;
                 dactivation = dtanh;
                 break;
-
         }
 
     }
 
     void feedForward(float * input){
+
+
         /* compute a0 */
+        cout << "Computing a0..." << "\n";
         for (int i = 0; i < numInput; i++) {
             outputInput[i] = input[i];
         }
 
         /* compute a1 */
+        cout << "Computing a1..." << "\n";
         for (int i = 0; i < numHidden; i++) {
             double sum = 0;
             for (int j = 0; j < numInput; j++) {
@@ -108,6 +118,7 @@ public:
         }
 
         /* compute a2 */
+        cout << "Computing a2..." << "\n";
         for (int i = 0; i < numOutput; i++) {
             double sum = 0;
             for (int j = 0; j < numHidden; j++) {
@@ -117,13 +128,17 @@ public:
         }
     }
 
-    void backPropagate(float * target){
+    float backPropagate(float * target){
+        float error;
         /* begin with s2 */
+        cout << "Computing s2..." << "\n";
         for (int i = 0; i < numOutput; i++) {
             sOutput[i] = -2 * (target[i]-outputOutput[i]);
+            error += (target[i]-outputOutput[i])*(target[i]-outputOutput[i]);
         }
 
         /* move on to s1 */
+        cout << "Computing s1..." << "\n";
         for (int i = 0; i < numHidden; i++) {
             float tmp = 0;
             for (int j = 0; j < numOutput; j++) {
@@ -131,22 +146,85 @@ public:
             }
             sHidden[i] = dactivation(outputHidden[i]) * tmp;
         }
+
+        return error;
     }
 
-    void updateWeight(){
+    void updateWeight(float rate){
+        cout << "Updating w2..." << "\n";
         /* update weight w2 */
-        for (int i = 0; i <  ; i++) {
-            weightHiddenOutput
+        for (int i = 0; i < numHidden ; i++) {
+            for (int j = 0; j < numOutput; j++) {
+                weightHiddenOutput[i][j] = weightHiddenOutput[i][j] - rate * outputHidden[i] * sOutput[j];
+            }
+        }
+
+        /* update weight w1 */
+        cout << "Updating w1..." << "\n";
+        for (int i = 0; i < numInput; i++) {
+            for (int j = 0; j < numHidden; j++) {
+                weightInputHidden[i][j] = weightInputHidden[i][j] - rate * outputInput[i] * sHidden[j];
+            }
+        }
+
+        /* update bias b2 */
+        cout << "Updating b2..." << "\n";
+        for (int i = 0; i < numOutput; i++) {
+            weightHiddenOutput[numHidden][i] = weightHiddenOutput[numHidden][i] - rate * sOutput[i];
+        }
+
+        /* update bias b1 */
+        cout << "Updating b1..." << "\n";
+        for (int i = 0; i < numHidden; i++) {
+            weightInputHidden[numInput][i] = weightInputHidden[numInput][i] - rate * sHidden[i];
         }
     }
 
     void train(float *** pattern, float rate = 0.2, iterations = 1000){
-        for (int i = 0; i < count; i++) {
-          /* code */
+        int numData = len(pattern);
+        for (int i = 0; i < iterations; i++) {
+            errorTrain = 0;
+            for (int j = 0; j < numData; j++) {
+                /* input = pattern[j][0] , target = pattern[j][1] */
+                feedForward(pattern[j][0]);
+                errorTrain += backPropagate(pattern[j][1]);
+                updateWeight(rate);
+            }
+            errorTrain /= 2;
+            cout << "This training iteration's loss is :" << errorTrain << ".\n";
         }
     }
 
-    void test(){
+    void test(float *** pattern){
+      int numData = len(pattern);
+      int hitNum = 0;
+      bool ifHit = TRUE;
+      errorTest = 0;
+        for (int j = 0; j < numData; j++) {
+            /* input = pattern[j][0] , target = pattern[j][1] */
+            feedForward(pattern[j][0]);
+            errorTest += backPropagate(pattern[j][1]);
+            ifHit = TRUE;
+            for (int i = 0; i < numOutput; i++) {
+                if ((outputOutput[i]-pattern[j][1][i]>1)||(outputOutput[i]-pattern[j][1][i]<-1)) {
+                    ifHit = FALSE;
+                    break;
+                }
+            }
+            if (ifHit) {
+                hitNum ++;
+            }
+        }
+        errorTest /= 2;
+        cout << "The test's loss is :" << errorTest << ".\n";
+        cout << "The hit rate is :"<< hitNum/(float)numData << ".\n";
+    }
+
+    void saveModel(char * filename){
+
+    }
+
+    void loadModel(char * filename){
 
     }
 
