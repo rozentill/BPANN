@@ -1,10 +1,26 @@
 #! /usr/env/bin
 #-*-coding:utf8-*-
 
-class BPANN(object):
-    """docstring for """
-    def __init__(self, arg):
-        super(, self).__init__()
-        self.arg = arg
+import random
 
-1    def feedForward():
+class BPANN(object):
+
+    def __init__(self, ni, nh, no, funcNo):
+
+        #initialize the number of nodes
+        self.numInput = ni
+        self.numHidden = nh
+        self.numOutput = no
+
+        #initialize the weight matrices
+        self.weightInputHidden = [[random.uniform(0,0.2) for x in range(1,nh+1)] for y in range(1,ni+1)]
+        self.weightHiddenOutput = [[random.uniform(0,4)-2 for x in range(1,no+1)] for y in range(1,nh+1)]
+
+        #initialize the outputs of each layer, as a0, a1, a2
+        self.vecInput =
+        
+
+    def feedForward(self):
+
+
+    def backPropagate(self):
