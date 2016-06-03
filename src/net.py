@@ -18,7 +18,9 @@ class BPANN(object):
 
         #initialize the outputs of each layer, as a0, a1, a2
         self.vecInput =
-        
+        self.vecHidden =
+        self.vecOutput = 
+
 
     def feedForward(self):
 
