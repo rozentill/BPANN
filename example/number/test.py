@@ -38,7 +38,7 @@ index += struct.calcsize('>784B')
 print im[0]
 print numItem
 
-# fig = plt.figure()
-# plotwindow = fig.add_subplot(111)
-# plt.imshow(pm)
-# plt.show()
+fig = plt.figure()
+plotwindow = fig.add_subplot(111)
+plt.imshow(pm)
+plt.show()
