@@ -1,4 +1,4 @@
-## Number Handwriting Recognition
+## Handwriting Number Recognition
 
 Written by : Python  
 Prerequisite : pip, Numpy, PIL(pillow), matplotlib  
@@ -58,12 +58,21 @@ I test several times and find the **15** hidden layer nodes and **0.05** learnin
 ```shell
 $python numberTrain.py
 ```
-After this, the model will be saved automatically in **model.txt**.
+After this, the model will be saved automatically in **model.txt**.  
 3. **Training Results**  
 
 Learning rate\No. of Hidden Nodes | 11 | 13 | 15 | 17 | 19
 ---|---|---|---|---|---
 0.05 | 74.98% | 85.12% | 85.23% | 84.71% | 63.59%
+
+#### Files Explanation
+---
+- net.py : implement a neural network class.
+- function.py : implement two activation functions and can be chosen by users.
+- minist.py : implement a class for MINIST dataset which can be used to access the dataset file simply.
+- numberTrain.py : the training program, it also stores the result in the model.txt.
+- numberRec.py : load the weights stored in model.txt and recognize an image.
+- drawNumber.py : used to generate a digit image automatically.
 
 #### In the Future
 ---
