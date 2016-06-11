@@ -4,6 +4,7 @@
 import random
 import numpy as np
 import function as func
+import string
 
 class BPANN(object):
 
@@ -118,3 +119,49 @@ class BPANN(object):
         self.vecInput = np.array([input_data])
         self.feedForward()
         return np.ndarray.tolist(self.vecOutput[0])
+
+    def saveModel(self,filename):
+        f = open(filename,'w')
+        #write weightInputHidden
+        for i in range(0,self.numInput):
+            for j in range(0,self.numHidden):
+                f.write(str(self.weightInputHidden[i][j])+'\n')
+
+        #write weightHiddenOutput
+        for i in range(0,self.numHidden):
+            for j in range(0,self.numOutput):
+                f.write(str(self.weightHiddenOutput[i][j])+'\n')
+
+        #write biasHidden
+        for i in range(0,self.numHidden):
+            f.write(str(self.biasHidden[0][i])+'\n')
+
+        #write biasOutput
+        for i in range(0,self.numOutput):
+            f.write(str(self.biasOutput[0][i])+'\n')
+
+        f.close()
+
+    def loadModel(self,filename):
+
+        f = open(filename,'r')
+
+        #read weightInputHidden
+        for i in range(0,self.numInput):
+            for j in range(0,self.numHidden):
+                self.weightInputHidden[i][j] = string.atof(f.readline()[:-1])
+
+        #read weightHiddenOutput
+        for i in range(0,self.numHidden):
+            for j in range(0,self.numOutput):
+                self.weightHiddenOutput[i][j] = string.atof(f.readline()[:-1])
+
+        #read biasHidden
+        for i in range(0,self.numHidden):
+            self.biasHidden[0][i] = string.atof(f.readline()[:-1])
+
+        #read biasOutput
+        for i in range(0,self.numOutput):
+            self.biasOutput[0][i] = string.atof(f.readline()[:-1])
+
+        f.close()
