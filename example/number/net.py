@@ -121,7 +121,7 @@ class BPANN(object):
         return np.ndarray.tolist(self.vecOutput[0])
 
     def saveModel(self,filename):
-        f = open(filename,'w')
+        f = open(filename,'w+')
         #write weightInputHidden
         for i in range(0,self.numInput):
             for j in range(0,self.numHidden):
