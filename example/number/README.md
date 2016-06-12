@@ -25,13 +25,12 @@ Then it will show you some words :
 ```shell
 Please enter the file name you want to save for this radomly generated image :
 ```
-You just need to enput a file name such as 001, 002 and some other names you like.  
-After that, you will see the image already generated like this :  ![image](https://raw.githubusercontent.com/rozentill/BPANN/master/example/number/numbers/002.jpg)  
-Furthermore, it is stored in directory **numbers**.
+You just need to input a file name such as 001, 002 and some other names you like. And you can see the following message :  
 ```shell
 The image is saved successfully.
 ```
-Now you can test them.
+After that, you will find the image already generated like this :  ![image](https://raw.githubusercontent.com/rozentill/BPANN/master/example/number/numbers/002.jpg)
+stored in directory **numbers**. Now you can test them under the following guide.
 
 **Recognize the Images**  
 Similar to the above, you just need to type a command at first :
@@ -76,4 +75,4 @@ Learning rate\No. of Hidden Nodes | 11 | 13 | 15 | 17 | 19
 
 #### In the Future
 ---
-I wish this project can recognize more characters like letters and can be more stronger in the dirty data. Also I wish it can be a package which allow people to use it to attack the CAPTCHA.
+I wish this project can recognize more characters like letters and can be more stronger in the dirty data. Also I wish it can be a package which allows people to attack the CAPTCHA.
