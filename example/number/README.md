@@ -23,7 +23,7 @@ $python drawNumber.py
 ```
 Then it will show you some words :
 ```shell
-Please enter the file name you want to save for this radomly generated image :
+Please enter the file name you want to save for this randomly generated image :
 ```
 You just need to input a file name such as 001, 002 and some other names you like. And you can see the following message :  
 ```shell
@@ -43,7 +43,7 @@ Now there is a similar sentence :
 Please enter the file path you want to recognize :
 ```
 You need to type a file name(e.g. 001) exists in **numbers** directory.  
-Then you can get the recoginization result like the following :
+Then you can get the recognization result like the following :
 ```shell
 The image is recognized as :0
 ```
