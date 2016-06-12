@@ -51,7 +51,9 @@ The image is recognized as :0
 #### Training Process and Result
 ---
 1. **Process the data**  
-Actually the data of MINIST can not be used to train directly since it is not a binarized image data. So I binarized and normalized them by detecting whether the value of a pixel is bigger than 136. If it is, set it as 1, otherwise set it as 0.
+Actually the data of MINIST can not be used to train directly since it is not a binarized image data. So I binarized and normalized them by detecting whether the value of a pixel is bigger than 136. If it is, set it as 1, otherwise set it as 0. The results are as follows :  
+![image](https://raw.githubusercontent.com/rozentill/BPANN/master/example/number/handwriting/train_gray.png)
+![image](https://raw.githubusercontent.com/rozentill/BPANN/master/example/number/handwriting/train_binary.png)  
 2. **Train by BP Network**  
 I test several times and find the **15** hidden layer nodes and **0.05** learning rate may be good for the training. And I only train one iteration since the result is already good. The command is as follow :
 ```shell
